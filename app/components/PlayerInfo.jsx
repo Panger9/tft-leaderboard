@@ -58,8 +58,7 @@ async function GetPlayerInfoCombined(puuid){
   const PlayerInfo2 = await GetPlayerInfo2(puuid)
   const PlayerInfo3 = await GetPlayerInfo3(PlayerInfo2.id)
 
-  const AllPlayerInfo = {...PlayerInfo1, ...PlayerInfo2, ...PlayerInfo3.filter(obj => obj.queueType == 'RANKED_TFT')[0]};
-  console.log(AllPlayerInfo)
+  const AllPlayerInfo = {...PlayerInfo1, ...PlayerInfo2, ...PlayerInfo3[0]};
   return AllPlayerInfo
 
 }
