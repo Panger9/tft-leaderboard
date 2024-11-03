@@ -14,7 +14,7 @@ const allPuuids = [
 const tierOrder = ["IRON", "BRONZE", "SILVER", "GOLD", "PLATINUM", "EMERALD", "DIAMOND", "MASTER", "GRANDMASTER", "CHALLENGER"];
 const rankOrder = ["IV", "III", "II", "I"];
 
-const RiotKey = "RGAPI-f33f6640-1853-458c-a2e7-1a599f7e2c1f"
+const RiotKey = "RGAPI-a71893e7-68df-4153-858b-e32749dc9ace"
 
 
 async function GetPlayerInfo1(puuid){
