@@ -11,11 +11,8 @@ const allPuuids = [
   "hVt4C2ld2tiOd7WTcIPLIjOKC7upcyxt98ASe7lVtOVF31Xlw5K1WQqmMqL0ekDM0jLQ0fkIGD5z2A" // Burim
 ]
 
-const allPuuids2 = [
-  "mZFChQyv2o9RApIbqVEuQgzdqb3hEjoa16DrootWFlHIfXqFJs4u-86UjZp11c3Uun7YMT3FDiCsnQ", //Panger
-  "-WMG6_Bl0tYQHyQalzlW4Lu1_XDaFpEY4umpGXNce5_puF4vmRh--tqh2-gC_-7EtY53U6oG1X_mTw" //PangerLenís
-
-]
+const tierOrder = ["IRON", "BRONZE", "SILVER", "GOLD", "PLATINUM", "EMERALD", "DIAMOND", "MASTER", "GRANDMASTER", "CHALLENGER"];
+const rankOrder = ["IV", "III", "II", "I"];
 
 const RiotKey = "RGAPI-f33f6640-1853-458c-a2e7-1a599f7e2c1f"
 
@@ -76,21 +73,29 @@ async function GetAllPlayerInfo(puuid_array){
     allPlayerInfo.push(playerInfo)
   }
 
-  
+  return sortPlayersByElo(allPlayerInfo)
+}
 
-  return allPlayerInfo
+function sortPlayersByElo(players) {
+  return players.sort((a, b) => {
+    if (tierOrder.indexOf(a.tier) !== tierOrder.indexOf(b.tier)) {
+      return tierOrder.indexOf(b.tier) - tierOrder.indexOf(a.tier);
+    }
+    if (rankOrder.indexOf(a.rank) !== rankOrder.indexOf(b.rank)) {
+      return rankOrder.indexOf(b.rank) - rankOrder.indexOf(a.rank);
+    }
+    return b.leaguePoints - a.leaguePoints;
+  });
 }
 
 export default async function PlayerInfo() {
 
-  const allPlayerInfo = await GetAllPlayerInfo(allPuuids2)
+  const allPlayerInfo = await GetAllPlayerInfo(allPuuids)
 
   return (
-    <div>
+    <div className='flex flex-col w-full gap-3 bg-slate-900 rounded-2xl p-3 '>
       {allPlayerInfo.map((e, index) => (
-        <div key={e.id}>
-          <PlayerPanel gameName={e.gameName} profileIconId={e.profileIconId} tier={e.tier ? e.tier : "Unranked"} tagLine={e.tagLine} rank={e.rank} wins={e.wins} losses={e.losses} index={index} leaguePoints={e.leaguePoints} />
-        </div>
+          <PlayerPanel key={e.id} gameName={e.gameName} profileIconId={e.profileIconId} tier={e.tier} tagLine={e.tagLine} rank={e.rank} wins={e.wins} losses={e.losses} index={index} leaguePoints={e.leaguePoints} />
       ))}
       
     </div>
