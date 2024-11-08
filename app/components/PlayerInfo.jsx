@@ -1,81 +1,11 @@
 import React from 'react'
 import PlayerPanel from './PlayerPanel'
+import { sql } from '@vercel/postgres';
+import { GET } from '../api/route';
 
-// alle puuids:
-
-const allPuuids = [
-  "mZFChQyv2o9RApIbqVEuQgzdqb3hEjoa16DrootWFlHIfXqFJs4u-86UjZp11c3Uun7YMT3FDiCsnQ", //Panger
-  "hiRYfQC_MlqRjjA3MxduebV_Tpx9crqTssry9YsWz49u5Yba3M94OXO_T8M1WKcmREH68vhPJJ7j-g", //Jules
-  "yIZChK3RHzFYylJEpmQq6Kcf3wbR5Bwrl1EPafhsPc1tFiI4Nhq-P8aXzIJZPKwbczPvPFYFVs_Okg", //Ylli
-  "Wi99-6GvvVdH7VXrA-SP5jmYfSJvWwhIpy0fMcM2IZ35XLiTjHI5c8i7uTnRQSjwe5eamNQW32TU0g", //Steven
-  "hVt4C2ld2tiOd7WTcIPLIjOKC7upcyxt98ASe7lVtOVF31Xlw5K1WQqmMqL0ekDM0jLQ0fkIGD5z2A", // Burim
-  //"5h3Bsp4snhkytsCaDgot2l68Git5p9bNvuT0mHVoMKqMdT6ufP-5qN4l3G2dnQ9d6t4hQbX42B3IDg"  //Adri
-]
 
 const tierOrder = ["IRON", "BRONZE", "SILVER", "GOLD", "PLATINUM", "EMERALD", "DIAMOND", "MASTER", "GRANDMASTER", "CHALLENGER"];
 const rankOrder = ["IV", "III", "II", "I"];
-
-const RiotKey = process.env.RIOT_KEY;
-
-
-async function GetPlayerInfo1(puuid){
-
-  const res = await fetch(`https://europe.api.riotgames.com/riot/account/v1/accounts/by-puuid/${puuid}?api_key=${RiotKey}` , {
-    next: {
-      revalidate: 20
-    }
-  });
-  const data = await res.json();
-  
-  return data;
-}
-
-async function GetPlayerInfo2(puuid){
-
-  const res = await fetch(`https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}?api_key=${RiotKey}` , {
-    next: {
-      revalidate: 20
-    }
-  });
-  const data = await res.json();
-  
-  return data;
-}
-
-async function GetPlayerInfo3(summonerId){
-
-  const res = await fetch(`https://euw1.api.riotgames.com/tft/league/v1/entries/by-summoner/${summonerId}?api_key=${RiotKey}` , {
-    next: {
-      revalidate: 20
-    }
-  });
-  const data = await res.json();
-  return data;
-}
-
-async function GetPlayerInfoCombined(puuid){
-
-  const PlayerInfo1 = await GetPlayerInfo1(puuid)
-  const PlayerInfo2 = await GetPlayerInfo2(puuid)
-  const PlayerInfo3 = await GetPlayerInfo3(PlayerInfo2.id)
-
-  const AllPlayerInfo = {...PlayerInfo1, ...PlayerInfo2, ...PlayerInfo3[0]};
-  console.log(AllPlayerInfo)
-  return AllPlayerInfo
-
-}
-
-async function GetAllPlayerInfo(puuid_array){
-
-  const allPlayerInfo = [];
-
-  for(let puuid of puuid_array){
-    const playerInfo = await GetPlayerInfoCombined(puuid)
-    allPlayerInfo.push(playerInfo)
-  }
-
-  return sortPlayersByElo(allPlayerInfo)
-}
 
 function sortPlayersByElo(players) {
   return players.sort((a, b) => {
@@ -89,14 +19,28 @@ function sortPlayersByElo(players) {
   });
 }
 
+async function GetAllPlayerInfo(){
+
+  const res = await sql`
+    SELECT * FROM PlayerInfo
+  `
+  const allPlayers = res.rows
+  return sortPlayersByElo(allPlayers)
+}
+
+
 export default async function PlayerInfo() {
 
-  const allPlayerInfo = await GetAllPlayerInfo(allPuuids)
+  const allPlayerInfo = await GetAllPlayerInfo()
+  
+  const res = await GET();
+  console.log(res)
 
   return (
-    <div className='flex flex-col w-2/3 gap-3 rounded-2xl p-3 '>
+    <div  className='flex flex-col w-2/3 gap-3 rounded-2xl p-3 '>
+      
       {allPlayerInfo.map((e, index) => (
-          <PlayerPanel key={e.id} gameName={e.gameName} profileIconId={e.profileIconId} tier={e.tier} tagLine={e.tagLine} rank={e.rank} wins={e.wins} losses={e.losses} index={index} leaguePoints={e.leaguePoints} />
+          <PlayerPanel key={e.id} gameName={e.gamename} profileIconId={e.profileiconid} tier={e.tier} tagLine={e.tagline} rank={e.rank} wins={e.wins} losses={e.losses} index={index} leaguePoints={e.leaguepoints} />
       ))}
       
     </div>
