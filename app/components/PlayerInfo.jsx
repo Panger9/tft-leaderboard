@@ -1,13 +1,15 @@
 import React from 'react'
 import PlayerPanel from './PlayerPanel'
 import { sql } from '@vercel/postgres';
-import { GET } from '../api/route';
-
-
-const tierOrder = ["IRON", "BRONZE", "SILVER", "GOLD", "PLATINUM", "EMERALD", "DIAMOND", "MASTER", "GRANDMASTER", "CHALLENGER"];
-const rankOrder = ["IV", "III", "II", "I"];
+import { GET } from '../api/postgres/route';
+import RefreshButton from './RefreshButton';
+import UpdatePlayerInfo from './riotapi';
 
 function sortPlayersByElo(players) {
+
+  const tierOrder = ["IRON", "BRONZE", "SILVER", "GOLD", "PLATINUM", "EMERALD", "DIAMOND", "MASTER", "GRANDMASTER", "CHALLENGER"];
+  const rankOrder = ["IV", "III", "II", "I"];
+
   return players.sort((a, b) => {
     if (tierOrder.indexOf(a.tier) !== tierOrder.indexOf(b.tier)) {
       return tierOrder.indexOf(b.tier) - tierOrder.indexOf(a.tier);
@@ -32,9 +34,7 @@ async function GetAllPlayerInfo(){
 export default async function PlayerInfo() {
 
   const allPlayerInfo = await GetAllPlayerInfo()
-  
-  const res = await GET();
-  console.log(res)
+
 
   return (
     <div  className='flex flex-col w-2/3 gap-3 rounded-2xl p-3 '>
@@ -42,7 +42,9 @@ export default async function PlayerInfo() {
       {allPlayerInfo.map((e, index) => (
           <PlayerPanel key={e.id} gameName={e.gamename} profileIconId={e.profileiconid} tier={e.tier} tagLine={e.tagline} rank={e.rank} wins={e.wins} losses={e.losses} index={index} leaguePoints={e.leaguepoints} />
       ))}
-      
+      <RefreshButton  />
+      <div></div>
     </div>
+
   )
 }

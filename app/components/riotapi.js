@@ -1,4 +1,6 @@
-// alle puuids:
+"user server"
+
+const { sql } = require("@vercel/postgres");
 
 const allPuuids = [
   "UwRfVxejoOOl2vfhjWiqitKXQrYN1NOqfgBiAvkOa7XLdLDwi7ZYe-sXDr-H1glgNDqmQVrGm6Oiqw", //Panger
@@ -9,12 +11,13 @@ const allPuuids = [
 ]
 
 const RiotKey = process.env.RIOT_KEY;
+console.log(RiotKey)
 
 async function GetPlayerInfo1(puuid){
 
   const res = await fetch(`https://europe.api.riotgames.com/riot/account/v1/accounts/by-puuid/${puuid}?api_key=${RiotKey}` , {
     next: {
-      revalidate: 20
+      revalidate: 0
     }
   });
   const data = await res.json();
@@ -24,9 +27,9 @@ async function GetPlayerInfo1(puuid){
 
 async function GetPlayerInfo2(puuid){
 
-  const res = await fetch(`https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}?api_key=${RiotKey}` , {
+  const res = await fetch(`https://euw1.api.riotgames.com/tft/summoner/v1/summoners/by-puuid/${puuid}?api_key=${RiotKey}` , {
     next: {
-      revalidate: 20
+      revalidate: 0
     }
   });
   const data = await res.json();
@@ -38,7 +41,7 @@ async function GetPlayerInfo3(summonerId){
 
   const res = await fetch(`https://euw1.api.riotgames.com/tft/league/v1/entries/by-summoner/${summonerId}?api_key=${RiotKey}` , {
     next: {
-      revalidate: 20
+      revalidate: 0
     }
   });
   const data = await res.json();
@@ -57,14 +60,15 @@ async function GetPlayerInfoCombined(puuid){
 
 }
 
-async function GetAllPlayerInfoOld(puuid_array){
+export default async function UpdatePlayerInfo(){
 
-  const allPlayerInfo = [];
+  for(let puuid of allPuuids){
 
-  for(let puuid of puuid_array){
-    const playerInfo = await GetPlayerInfoCombined(puuid)
-    allPlayerInfo.push(playerInfo)
-  }
-
-  return sortPlayersByElo(allPlayerInfo)
+    let playerInfo = await GetPlayerInfoCombined(puuid)
+    await sql`
+      UPDATE playerinfo
+      SET tier = ${playerInfo.tier}, rank = ${playerInfo.rank}, wins = ${playerInfo.wins}, losses = ${playerInfo.losses},  profileiconid = ${playerInfo.profileIconId}, leaguepoints = ${playerInfo.leaguePoints}
+      WHERE puuid = ${playerInfo.puuid};
+    `
+  } 
 }
