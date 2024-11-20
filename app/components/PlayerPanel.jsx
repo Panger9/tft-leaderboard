@@ -7,6 +7,8 @@ import Image from 'next/image'
 
 
 export default function PlayerPanel(p) {
+
+  
   return (
     <a target="_blank" href={`https://www.metatft.com/player/euw/${p.gameName}-${p.tagLine}`} className='block'>
       <div className='flex flex-row w-full justify-between bg-gradient-to-r from-gray-900 to-blue-950 rounded-2xl py-3 px-4 items-center transform transition-transform hover:scale-105 active:scale-95 '

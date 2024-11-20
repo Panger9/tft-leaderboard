@@ -50,18 +50,18 @@ async function GetPlayerInfo3(summonerId){
 
 async function GetPlayerInfoCombined(puuid){
 
-  const PlayerInfo1 = await GetPlayerInfo1(puuid)
-  const PlayerInfo2 = await GetPlayerInfo2(puuid)
-  const PlayerInfo3 = await GetPlayerInfo3(PlayerInfo2.id)
+  const playerInfo1 = await GetPlayerInfo1(puuid)
+  const playerInfo2 = await GetPlayerInfo2(puuid)
+  const playerInfo3 = await GetPlayerInfo3(playerInfo2.id)
 
-  const AllPlayerInfo = {...PlayerInfo1, ...PlayerInfo2, ...PlayerInfo3[0]};
-  console.log(AllPlayerInfo)
-  return AllPlayerInfo
+  const playerInfoCombined = {...playerInfo1, ...playerInfo2, ...playerInfo3[0]};
+  return playerInfoCombined
 
 }
 
 export default async function UpdatePlayerInfo(){
 
+  const allPlayerInfo = []
   for(let puuid of allPuuids){
 
     let playerInfo = await GetPlayerInfoCombined(puuid)
@@ -70,5 +70,7 @@ export default async function UpdatePlayerInfo(){
       SET tier = ${playerInfo.tier}, rank = ${playerInfo.rank}, wins = ${playerInfo.wins}, losses = ${playerInfo.losses},  profileiconid = ${playerInfo.profileIconId}, leaguepoints = ${playerInfo.leaguePoints}
       WHERE puuid = ${playerInfo.puuid};
     `
+    allPlayerInfo.push(playerInfo)
   } 
+  return allPlayerInfo
 }

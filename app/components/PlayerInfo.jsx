@@ -34,6 +34,7 @@ async function GetAllPlayerInfo(){
 export default async function PlayerInfo() {
 
   const allPlayerInfo = await GetAllPlayerInfo()
+  console.log(allPlayerInfo)
 
 
   return (
