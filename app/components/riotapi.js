@@ -23,7 +23,7 @@ async function GetPlayerInfo1(puuid) {
     }
   )
   const data = await res.json()
-
+  console.log(data)
   return data
 }
 
@@ -37,7 +37,7 @@ async function GetPlayerInfo2(puuid) {
     }
   )
   const data = await res.json()
-
+  console.log(data)
   return data
 }
 
@@ -51,6 +51,7 @@ async function GetPlayerInfo3(summonerId) {
     }
   )
   const data = await res.json()
+  console.log(data)
   return data
 }
 
@@ -73,7 +74,7 @@ export default async function UpdatePlayerInfo() {
     let playerInfo = await GetPlayerInfoCombined(puuid)
     await sql`
       UPDATE playerinfo
-      SET tier = ${playerInfo.tier}, rank = ${playerInfo.rank}, wins = ${playerInfo.wins}, losses = ${playerInfo.losses},  profileiconid = ${playerInfo.profileIconId}, leaguepoints = ${playerInfo.leaguePoints}
+      SET tier = ${playerInfo.tier}, rank = ${playerInfo.rank}, wins = ${playerInfo.wins}, losses = ${playerInfo.losses},  profileiconid = ${playerInfo.profileIconId}, leaguepoints = ${playerInfo.leaguePoints}, summonerid = ${playerInfo.id}
       WHERE puuid = ${playerInfo.puuid};
     `
     allPlayerInfo.push(playerInfo)
