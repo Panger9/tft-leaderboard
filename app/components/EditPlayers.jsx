@@ -1,10 +1,16 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 
 export default function EditPlayers() {
   const [gameName, setGameName] = useState("")
   const [tagLine, setTagLine] = useState("")
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  useEffect(() => {
+    const admin = localStorage.getItem("admin") === "1234"
+    setIsAdmin(admin)
+  }, [])
 
   async function handleAddPlayer() {
     const res = await fetch(`/api/service`, {
@@ -12,6 +18,7 @@ export default function EditPlayers() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ gameName, tagLine }),
     })
+    // Optional: Handle response
   }
 
   async function handleDeletePlayer() {
@@ -20,15 +27,16 @@ export default function EditPlayers() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ gameName, tagLine }),
     })
+    // Optional: Handle response
   }
 
   return (
     <>
-      {localStorage.getItem("admin") == "1234" ? (
+      {isAdmin ? (
         <div className="flex gap-3 p-3 bg-blue-300 rounded mb-20">
           <div className="flex gap-3">
             <input
-              className="flex-4 px-2 py-1 "
+              className="flex-4 px-2 py-1"
               type="text"
               placeholder="Summoner Name"
               value={gameName}
@@ -52,9 +60,7 @@ export default function EditPlayers() {
             </button>
           </div>
         </div>
-      ) : (
-        ""
-      )}
+      ) : null}
     </>
   )
 }
