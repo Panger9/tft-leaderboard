@@ -23,8 +23,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
-        <div className="absolute inset-0 bg-black opacity-70 z-[-1]"></div>
-        <div className="absolute inset-0 bg-[url('/background.jpg')] bg-cover bg-center filter blur-lg z-[-2]"></div>
+        <div className="fixed inset-0 bg-black opacity-70 z-[-1]"></div>
+        <div className="fixed inset-0 bg-[url('/background.jpg')] bg-cover bg-center filter blur-lg z-[-2]"></div>
 
         {children}
       </body>

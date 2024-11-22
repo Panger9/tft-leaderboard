@@ -32,7 +32,7 @@ export default function RefreshButton() {
     <div className="w-full flex-col justify-center items-center">
       {isPending ? (
         <button
-          className=" w-full mt-4 bg-gradient-to-r from-gray-400 to-gray-500 rounded-2xl py-3 px-4 items-center transform transition-transform"
+          className="w-full mt-4 bg-gray-300 rounded-2xl py-3 px-4 items-center transform transition  easy-in-out duration-100 "
           style={{ boxShadow: "3px 10px 14px rgba(0,0,0,0.6)" }}
           disabled
         >
@@ -40,7 +40,7 @@ export default function RefreshButton() {
         </button>
       ) : (
         <button
-          className=" w-full mt-4 bg-gradient-to-r from-blue-200 to-blue-300 rounded-2xl py-3 px-4 items-center transform transition-transform hover:scale-105 active:scale-95"
+          className="w-full mt-4 bg-blue-300 rounded-2xl py-3 px-4 items-center transform transition ease-in-out duration-100 hover:scale-[1.01] active:bg-blue-200"
           style={{ boxShadow: "3px 10px 14px rgba(0,0,0,0.6)" }}
           onClick={handleRefetch}
         >

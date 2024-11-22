@@ -8,7 +8,7 @@ export default async function PlayerInfo() {
   console.log(allPlayerInfo)
 
   return (
-    <div className="flex flex-col w-2/3 gap-3 rounded-2xl p-3 ">
+    <div className="flex flex-col w-full gap-3 rounded-2xl  my-3">
       {allPlayerInfo.map((e, index) => (
         <PlayerPanel
           key={e.id}
@@ -23,7 +23,7 @@ export default async function PlayerInfo() {
           leaguePoints={e.leaguepoints}
         />
       ))}
-      <RefreshButton />
+
       <div></div>
     </div>
   )

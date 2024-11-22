@@ -66,6 +66,6 @@ export async function CreatePlayer(gameName, tagLine) {
   return playerInfo
 }
 
-export async function DeletePlayer(puuid) {
-  await DB_DeletePlayerInfo(puuid)
+export async function DeletePlayer(gameName, tagLine) {
+  await DB_DeletePlayerInfo(gameName, tagLine)
 }

@@ -51,8 +51,8 @@ export async function POST(request) {
 
 export async function DELETE(request) {
   try {
-    const { puuid } = await request.json()
-    await DeletePlayer(puuid)
+    const { gameName, tagLine } = await request.json()
+    await DeletePlayer(gameName, tagLine)
     return NextResponse.json({ message: `Player Deleted successfully` })
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 })

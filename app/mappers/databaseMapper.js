@@ -24,10 +24,9 @@ export async function DB_CreatePlayerInfo(playerInfo) {
   return playerInfo
 }
 
-export async function DB_DeletePlayerInfo(puuid) {
+export async function DB_DeletePlayerInfo(gameName, tagLine) {
   const res = await sql`
     DELETE FROM playerinfo
-    WHERE puuid = ${puuid};
+    WHERE gamename = ${gameName} AND tagline = ${tagLine};
   `
-  return res.rows
 }
