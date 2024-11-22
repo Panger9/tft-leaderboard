@@ -12,7 +12,7 @@ export default function RefreshButton() {
     setIsPending(true)
     setError(false)
 
-    const res = await fetch("/api/postgres", {
+    const res = await fetch("/api/service", {
       method: "PUT",
       headers: {
         "Cache-Control":
