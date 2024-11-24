@@ -15,14 +15,6 @@ export async function GetPlayerInfoSorted() {
   return allPlayersSorted
 }
 
-export async function ExchangeNullWithZeroes(players) {
-  console.log(
-    players.map((x) => {
-      x.rank == null ? x.rank == 0 : x.rank
-    })
-  )
-}
-
 function sortPlayersByElo(players) {
   const tierOrder = [
     "IRON",
@@ -45,7 +37,7 @@ function sortPlayersByElo(players) {
     if (rankOrder.indexOf(a.rank) !== rankOrder.indexOf(b.rank)) {
       return rankOrder.indexOf(b.rank) - rankOrder.indexOf(a.rank)
     }
-    return Number(b.leaguePoints) - Number(a.leaguePoints)
+    return b.leaguepoints - a.leaguepoints
   })
 }
 
