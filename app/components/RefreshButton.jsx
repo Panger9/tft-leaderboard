@@ -36,7 +36,7 @@ export default function RefreshButton() {
           style={{ boxShadow: "3px 10px 14px rgba(0,0,0,0.6)" }}
           disabled
         >
-          lädt...
+          beep... boop...
         </button>
       ) : (
         <button

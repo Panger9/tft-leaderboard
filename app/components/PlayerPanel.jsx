@@ -33,7 +33,7 @@ export default function PlayerPanel(p) {
             <div className="flex flex-row gap-1 text-xs text-gray-400 font-bold truncate">
               <p>{p.tier ? p.tier : "UNRANKED"}</p>
               <p>{p.rank}</p>
-              <p>{p.leaguePoints ? p.leaguePoints + "LP" : ""}</p>
+              <p>{p.leaguePoints + " LP"}</p>
             </div>
           </div>
         </div>
