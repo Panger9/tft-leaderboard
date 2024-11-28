@@ -13,7 +13,7 @@ export default function PlayerPanel(p) {
       style={{ boxShadow: "3px 10px 14px rgba(0,0,0,0.6) " }}
     >
       <div className="flex items-center gap-3 flex-[1] min-w-12 max-w-64">
-        <div className="text-4xl flex justify-start text-white flex-[0.7]">
+        <div className="text-4xl flex justify-start text-white flex-[0.7] px-1">
           {p.index + 1}.
         </div>
         <img
@@ -55,7 +55,9 @@ export default function PlayerPanel(p) {
           </div>
         </div>
         <div className=" flex flex-col items-center">
-          <p className="text-gray-300 text-sm font-bold truncate">53</p>
+          <p className="text-gray-300 text-sm font-bold truncate">
+            {p.wins + p.losses}
+          </p>
           <p className="text-gray-300 text-sm font-bold truncate">games</p>
         </div>
         <div className="font-bold text-gray-100">
