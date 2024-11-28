@@ -5,10 +5,10 @@ import EditPlayers from "./components/EditPlayers"
 
 export default function Home() {
   return (
-    <main className="flex flex-col justify-center w-3/4 items-center justify-center  ">
-      <h2 className="text-4xl  mt-10 text-gray-200   ">
-        "Es geht um Ehre und Stolz"
-      </h2>
+    <main className="flex flex-col justify-center w-4/5 items-center   ">
+      <h1 className="text-4xl font-bold mt-10 text-gray-200 tracking-widest  ">
+        LEADERBOARD
+      </h1>
       <RefreshButton />
       <PlayerInfo />
       <EditPlayers />
