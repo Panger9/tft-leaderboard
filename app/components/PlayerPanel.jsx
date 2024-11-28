@@ -10,23 +10,25 @@ export default function PlayerPanel(p) {
   return (
     <div
       className="flex flex-row w-full justify-between bg-gradient-to-r from-gray-900 to-blue-950 rounded-2xl py-3 px-4 items-center hover:scale-[1.003]  "
-      style={{ boxShadow: "3px 10px 14px rgba(0,0,0,0.6) " }}
+      style={{ boxShadow: "3px 3px 12px rgba(0,0,0,0.5) " }}
     >
       <div className="flex items-center gap-3 flex-[1] min-w-12 max-w-64">
         <div className="text-4xl flex justify-start text-white flex-[0.7] px-1">
           {p.index + 1}.
         </div>
-        <img
-          src={`https://ddragon.leagueoflegends.com/cdn/14.14.1/img/profileicon/${p.profileIconId}.png`}
-          width={48}
-          height={48}
-          className="rounded-full border-2 border-blue-200"
-          alt="Profil Icon"
-          onError={(e) => {
-            e.target.onerror = null // Verhindert eine Endlosschleife, falls das alternative Bild ebenfalls nicht geladen werden kann
-            e.target.src = "/Unknown_player.png" // Pfad zu deinem alternativen Bild im `public`-Ordner
-          }}
-        />
+        <div>
+          <img
+            src={`https://ddragon.leagueoflegends.com/cdn/14.14.1/img/profileicon/${p.profileIconId}.png`}
+            width={48}
+            height={48}
+            className="rounded-full border-2 border-blue-200"
+            alt="Profil Icon"
+            onError={(e) => {
+              e.target.onerror = null // Verhindert eine Endlosschleife, falls das alternative Bild ebenfalls nicht geladen werden kann
+              e.target.src = "/Unknown_player.png" // Pfad zu deinem alternativen Bild im `public`-Ordner
+            }}
+          />
+        </div>
         <div className="flex flex-row flex-[6] min-w-12 overflow-hidden">
           <div className="flex flex-col">
             <div className="flex flex-row gap-3 items-center overflow-hidden">

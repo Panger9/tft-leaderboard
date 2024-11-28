@@ -29,22 +29,22 @@ export default function RefreshButton() {
   }
 
   return (
-    <div className="w-full flex-col justify-center items-center">
+    <div className="flex-1 justify-center items-center h-full">
       {isPending ? (
         <button
-          className="w-full mt-4 bg-gray-300 rounded-2xl py-3 px-4 items-center transform transition  easy-in-out duration-100 "
-          style={{ boxShadow: "3px 10px 14px rgba(0,0,0,0.6)" }}
+          className="w-full  bg-gray-300 rounded-2xl py-3 px-4 items-center h-full font-bold"
+          style={{ boxShadow: "3px 3px 12px rgba(0,0,0,0.5) " }}
           disabled
         >
           beep... boop...
         </button>
       ) : (
         <button
-          className="w-full mt-4 bg-blue-300 rounded-2xl py-3 px-4 items-center transform transition ease-in-out duration-100 hover:scale-[1.01] active:bg-blue-200"
-          style={{ boxShadow: "3px 10px 14px rgba(0,0,0,0.6)" }}
+          className="w-full bg-[#7eb4ff] rounded-2xl px-4 h-full items-center hover:bg-blue-300 active:bg-blue-200 font-bold "
+          style={{ boxShadow: "3px 3px 12px rgba(0,0,0,0.5) " }}
           onClick={handleRefetch}
         >
-          Refresh
+          REFRESH
         </button>
       )}
 
