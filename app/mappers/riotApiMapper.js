@@ -59,11 +59,12 @@ export async function GetPlayerInfoCombined(puuid) {
   const playerInfo2 = await GetPlayerInfo2(puuid)
   const playerInfo3 = await GetPlayerInfo3(playerInfo2.id)
 
-  const playerInfoCombined = {
-    ...playerInfo1,
-    ...playerInfo2,
-    ...playerInfo3[0],
-  }
+  const playerInfoCombined = CombinePlayerInfo(
+    playerInfo1,
+    playerInfo2,
+    playerInfo3
+  )
+
   return playerInfoCombined
 }
 
@@ -71,12 +72,12 @@ export async function GetPlayerInfoCombinedFromRiotId(gameName, tagLine) {
   const playerInfo1 = await GetPlayerInfo1FromRiotId(gameName, tagLine)
   const playerInfo2 = await GetPlayerInfo2(playerInfo1.puuid)
   const playerInfo3 = await GetPlayerInfo3(playerInfo2.id)
+  const playerInfoCombined = CombinePlayerInfo(
+    playerInfo1,
+    playerInfo2,
+    playerInfo3
+  )
 
-  const playerInfoCombined = {
-    ...playerInfo1,
-    ...playerInfo2,
-    ...playerInfo3[0],
-  }
   return playerInfoCombined
 }
 
@@ -84,7 +85,7 @@ async function CombinePlayerInfo(playerInfo1, playerInfo2, playerInfo3) {
   const playerInfoCombined = {
     ...playerInfo1,
     ...playerInfo2,
-    ...playerInfo3[0],
+    ...playerInfo3.find((x) => x.queueType === "RANKED_TFT"),
   }
   return playerInfoCombined
 }
