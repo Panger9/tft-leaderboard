@@ -3,7 +3,7 @@ import React from "react"
 export default function ToolPanel(p) {
   return (
     <a
-      className="flex-1 rounded-2xl flex items-center justify-center bg-[#7eb4ff] hover:bg-blue-300 h-[62px] active:bg-blue-200 cursor-pointer relative min-w-6"
+      className="flex-1 rounded-2xl flex items-center justify-center bg-[#7eb4ff] hover:bg-blue-300 h-[62px] active:bg-blue-200 cursor-pointer relative min-w-6 tool-panel"
       style={{ boxShadow: "3px 3px 12px rgba(0,0,0,0.5) " }}
       href={p.link}
       target="_blank"

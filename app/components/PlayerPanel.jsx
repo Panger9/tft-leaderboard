@@ -82,7 +82,7 @@ export default function PlayerPanel(p) {
           href={`https://www.metatft.com/player/euw/${p.gameName}-${p.tagLine}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="cursor-pointer  hover:scale-105 hover:opacity-90 active:scale-95"
+          className="cursor-pointer hover:scale-105 hover:opacity-90 active:scale-95 profile-link-click"
         >
           <img
             src="/metatft_logo.svg" // Korrigierter Dateiname ohne Leerzeichen
@@ -94,7 +94,7 @@ export default function PlayerPanel(p) {
           href={`https://tactics.tools/player/euw/${p.gameName}/${p.tagLine}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="cursor-pointer  hover:scale-105 hover:opacity-90 active:scale-95"
+          className="cursor-pointer  hover:scale-105 hover:opacity-90 active:scale-95 profile-link-click"
         >
           <img
             src="/tfttactics_logo 1.png" // Korrigierter Dateiname ohne Leerzeichen
@@ -106,7 +106,7 @@ export default function PlayerPanel(p) {
           href={`https://lolchess.gg/profile/euw/${p.gameName}-${p.tagLine}/set13`}
           target="_blank"
           rel="noopener noreferrer"
-          className="cursor-pointer  hover:scale-105 hover:opacity-90 active:scale-95"
+          className="cursor-pointer  hover:scale-105 hover:opacity-90 active:scale-95 profile-link-click"
         >
           <img
             src="/lolchessgg_logo_bkbg 1.png" // Korrigierter Dateiname ohne Leerzeichen
